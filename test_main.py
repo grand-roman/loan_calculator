@@ -12,11 +12,19 @@ class TestCurrencyConverterApp:
     def app(self):
         """Create a test instance of CurrencyConverterApp"""
         with patch('main.init_db'), \
-             patch('main.tk.Tk.__init__'), \
-             patch('main.tk.Tk.title'), \
-             patch('main.tk.Tk.geometry'), \
-             patch('main.tk.Tk.resizable'), \
-             patch('main.tk.Tk.mainloop'):
+             patch.object(tk.Tk, '__init__', return_value=None), \
+             patch.object(tk.Tk, 'title'), \
+             patch.object(tk.Tk, 'geometry'), \
+             patch.object(tk.Tk, 'resizable'), \
+             patch.object(tk.Tk, 'mainloop'), \
+             patch('main.ttk.Label'), \
+             patch('main.ttk.Entry'), \
+             patch('main.ttk.Button'), \
+             patch('main.ttk.Combobox'), \
+             patch('main.tk.DoubleVar'), \
+             patch('main.tk.IntVar'), \
+             patch('main.tk.StringVar'), \
+             patch('main.tk.Text'):
             app = CurrencyConverterApp()
             # Mock the tkinter components to avoid GUI issues
             app.monthly_label = MagicMock()
@@ -416,11 +424,11 @@ class TestAppInitialization:
     def test_app_initialization(self):
         """Test that app initializes without errors"""
         with patch('main.init_db'), \
-             patch('main.tk.Tk.__init__') as mock_init, \
-             patch('main.tk.Tk.title'), \
-             patch('main.tk.Tk.geometry'), \
-             patch('main.tk.Tk.resizable'), \
-             patch('main.tk.Tk.mainloop'), \
+             patch.object(tk.Tk, '__init__', return_value=None) as mock_init, \
+             patch.object(tk.Tk, 'title'), \
+             patch.object(tk.Tk, 'geometry'), \
+             patch.object(tk.Tk, 'resizable'), \
+             patch.object(tk.Tk, 'mainloop'), \
              patch('main.ttk.Label'), \
              patch('main.ttk.Entry'), \
              patch('main.ttk.Button'), \
@@ -437,11 +445,11 @@ class TestAppInitialization:
     def test_widget_creation(self):
         """Test that widgets are created properly"""
         with patch('main.init_db'), \
-             patch('main.tk.Tk.__init__'), \
-             patch('main.tk.Tk.title'), \
-             patch('main.tk.Tk.geometry'), \
-             patch('main.tk.Tk.resizable'), \
-             patch('main.tk.Tk.mainloop'), \
+             patch.object(tk.Tk, '__init__', return_value=None), \
+             patch.object(tk.Tk, 'title'), \
+             patch.object(tk.Tk, 'geometry'), \
+             patch.object(tk.Tk, 'resizable'), \
+             patch.object(tk.Tk, 'mainloop'), \
              patch('main.ttk.Label'), \
              patch('main.ttk.Entry'), \
              patch('main.ttk.Button'), \
