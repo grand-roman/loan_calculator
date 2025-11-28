@@ -58,14 +58,14 @@ class TestFetchRates:
 
     def test_fetch_rates_connection_error(self):
         with patch('api.requests.get') as mock_get:
-            mock_get.return_value = requests.ConnectionError('Connection failed')
+            mock_get.side_effect = requests.ConnectionError('Connection failed')
 
             with pytest.raises(RuntimeError, match='Failed to fetch rates: Connection failed'):
                 fetch_rates()
 
     def test_fetch_rates_connection_error(self):
         with patch('api.requests.get') as mock_get:
-            mock_get.return_value = requests.Timeout('Request timed out')
+            mock_get.side_effect = requests.Timeout('Request timed out')
 
             with pytest.raises(RuntimeError, match='Failed to fetch rates: Request timed out'):
                 fetch_rates()
